@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cktisqd3uw6aw"]
+
+[ext_resource type="PackedScene" uid="uid://dumtn4jqvpy0s" path="res://Entities/Item/TopDown/item.tscn" id="1_bxvuc"]
+[ext_resource type="PackedScene" uid="uid://c3tvv5iqrelr0" path="res://Entities/Player/TopDown/player_top_down.tscn" id="1_p2841"]
+
+[node name="TestTopDownScene" type="Node2D"]
+
+[node name="Wallet" parent="." instance=ExtResource("1_bxvuc")]
+position = Vector2(180, 97)
+ItemName = "Wallet"
+Description = "Wallet Desc"
+
+[node name="PlayerTopDown" parent="." instance=ExtResource("1_p2841")]
+
+[node name="Glasses" parent="." instance=ExtResource("1_bxvuc")]
+position = Vector2(225, 48)
+ItemName = "Glasses"
+Description = "Glasses Desc"
