@@ -1,18 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://cktisqd3uw6aw"]
+[gd_scene load_steps=4 format=3 uid="uid://cktisqd3uw6aw"]
 
 [ext_resource type="PackedScene" uid="uid://dumtn4jqvpy0s" path="res://Entities/Item/TopDown/item.tscn" id="1_bxvuc"]
+[ext_resource type="PackedScene" uid="uid://dxdja6q5ljdrp" path="res://Entities/Notebook/note_book.tscn" id="1_byj8d"]
 [ext_resource type="PackedScene" uid="uid://c3tvv5iqrelr0" path="res://Entities/Player/TopDown/player_top_down.tscn" id="1_p2841"]
 
 [node name="TestTopDownScene" type="Node2D"]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="NoteBook" parent="CanvasLayer" instance=ExtResource("1_byj8d")]
+offset_left = -4.0
+offset_top = 5.0
+offset_right = -4.0
+offset_bottom = 5.0
+playerTopDownContollerNodePath = NodePath("../../PlayerTopDown")
+
 [node name="Wallet" parent="." instance=ExtResource("1_bxvuc")]
 position = Vector2(180, 97)
-ItemName = "Wallet"
-Description = "Wallet Desc"
+description = "wallet desc"
 
 [node name="PlayerTopDown" parent="." instance=ExtResource("1_p2841")]
+position = Vector2(133, -79)
 
 [node name="Glasses" parent="." instance=ExtResource("1_bxvuc")]
 position = Vector2(225, 48)
-ItemName = "Glasses"
-Description = "Glasses Desc"
+description = "glasses desc"

@@ -2,5 +2,78 @@
 
 [ext_resource type="Script" path="res://Entities/Notebook/NoteBook.cs" id="1_7hb4g"]
 
-[node name="NoteBook" type="Node2D"]
+[node name="NoteBook" type="Control" node_paths=PackedStringArray("notes")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_7hb4g")
+notes = []
+boxContainerNodePath = NodePath("PanelContainer/Main/BoxContainer")
+headerLabelNodepath = NodePath("")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 139.0
+offset_right = 385.0
+offset_bottom = 480.0
+
+[node name="Main" type="Control" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="BoxContainer" type="VBoxContainer" parent="PanelContainer/Main"]
+layout_mode = 2
+offset_right = 302.0
+offset_bottom = 341.0
+
+[node name="PeopleButton" type="Button" parent="PanelContainer/Main/BoxContainer"]
+layout_mode = 2
+action_mode = 0
+text = "People
+"
+
+[node name="CluesButton" type="Button" parent="PanelContainer/Main/BoxContainer"]
+layout_mode = 2
+text = "Clues"
+
+[node name="LocationsButton" type="Button" parent="PanelContainer/Main/BoxContainer"]
+layout_mode = 2
+text = "Location
+"
+
+[node name="ObjectivesButton" type="Button" parent="PanelContainer/Main/BoxContainer"]
+layout_mode = 2
+text = "Objectives"
+
+[node name="People" type="Control" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="BoxContainer" type="VBoxContainer" parent="PanelContainer/People"]
+offset_right = 302.0
+offset_bottom = 341.0
+
+[node name="Clues" type="Control" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="BoxContainer" type="VBoxContainer" parent="PanelContainer/Clues"]
+offset_right = 302.0
+offset_bottom = 341.0
+
+[node name="Locations" type="Control" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="BoxContainer" type="VBoxContainer" parent="PanelContainer/Locations"]
+offset_right = 302.0
+offset_bottom = 341.0
+
+[node name="Objectives" type="Control" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="BoxContainer" type="VBoxContainer" parent="PanelContainer/Objectives"]
+offset_right = 302.0
+offset_bottom = 341.0

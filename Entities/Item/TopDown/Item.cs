@@ -3,18 +3,16 @@ using Godot;
 public partial class Item : Area2D{
 	[ExportCategory("General Information")]
 	[Export]
-	public string ItemName {get;set;}
+	public string itemName {get;set;}
 	[Export]
-	public string Description {get; set;}
+	public string description {get; set;}
 	[ExportCategory("Available Actions")]
 	[Export]
-	public bool IsPickable {get; set;}
+	public bool isPickable {get; set;}
 	[Export]
-	public bool IsClue {get;set;}
+	public bool isClue {get;set;}
 	[Export]
-	public bool IsNoted {get;set;}
-	// [Export]
-	// public bool LabelVisible = false;
+	public bool isNoted {get;set;}
 	public Label label;
 
 	public override void _Ready(){
@@ -23,9 +21,8 @@ public partial class Item : Area2D{
 	}
 
 	public void OnBodyEnteredOrExited(Node2D body){
-		if(body is CharacterBody2D && (body.Name == "PlayerTopDown" || body.IsInGroup("Player"))){
+		if(body is CharacterBody2D && (body.Name.Equals("PlayerTopDown") || body.IsInGroup("Player"))){
 			label.Visible = !label.Visible;
-			// LabelVisible = !LabelVisible;
 		}
 	}
 }
