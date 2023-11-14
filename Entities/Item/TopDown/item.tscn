@@ -19,7 +19,7 @@ texture = SubResource("CanvasTexture_u28be")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ds0nq")
 
-[node name="Label" type="Label" parent="."]
+[node name="ItemName" type="Label" parent="."]
 visible = false
 visibility_layer = 512
 z_index = 10
@@ -29,6 +29,3 @@ offset_top = -31.0
 offset_right = 31.0
 offset_bottom = -5.0
 text = "ITEM"
-
-[connection signal="body_entered" from="." to="." method="OnBodyEnteredOrExited"]
-[connection signal="body_exited" from="." to="." method="OnBodyEnteredOrExited"]

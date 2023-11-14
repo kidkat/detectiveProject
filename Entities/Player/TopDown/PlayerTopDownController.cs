@@ -1,63 +1,51 @@
 using Godot;
-using Godot.Collections;
 
 public partial class PlayerTopDownController : CharacterBody2D{
-	//signals
-	[Signal]
-	public delegate void ItemAddedEventHandler(Item item);
+    [Signal]
+    public delegate void ItemAddedEventHandler(Item item);
 
-	//variabls
-	[ExportCategory("Movement Variables")]
-	[Export] 
-	public float speed = 300.0f;
+    [ExportCategory("Movement Variables")]
+    [Export]
+    private float _speed = 300.0f;
+    [Export]
+    private bool _canMove = true;
+    
+    [ExportCategory("Movement Actions")]
+    [Export]
+    private StringName _actionNameForInputLeft;
+    [Export]
+    private StringName _actionNameForInputRight;
+    [Export]
+    private StringName _actionNameForInputUp;
+    [Export]
+    private StringName _actionNameForInputDown;
 
-	//nodes
-	private Area2D interactArea;
+    [ExportCategory("Paths of Nodes")]
+    [Export]
+    private NodePath _interactionAreaNodePath;
+    [Export]
+    private NodePath _interactiveMenuNodePath;
+
 
     public override void _Ready(){
-		interactArea = GetNode<Area2D>("InteractArea");
+        GetNode<InteractiveAreaController>(_interactionAreaNodePath).Interacted += (areaList, bodyList) => this.SetAbilityToMove(false);
+        GetNode<InteractiveMenuController>(_interactiveMenuNodePath).Hidden += () => this.SetAbilityToMove(true);
     }
-
-	public override void _Process(double delta){
-		this.LookForInteractive();
-	}
 
 	public override void _PhysicsProcess(double delta){
 		this.MovingProcess(delta);
 	}
 
-    public override void _Input(InputEvent @event){
-		if(@event.IsActionPressed("action_right")){
-			// Resource dialogue = GD.Load<Resource>("res://Dialogues/test1.dialogue");
-			// DialogueManager.ShowExampleDialogueBalloon(dialogue, "cop_dialogue");
-		}
+	private void MovingProcess(double delta){
+        if (_canMove){
+            Vector2 direction = Input.GetVector(_actionNameForInputLeft, _actionNameForInputRight, _actionNameForInputUp, _actionNameForInputDown).Normalized();
+
+            Velocity = direction * _speed;
+            MoveAndSlide();
+        }
     }
 
-	private void MovingProcess(double delta){
-		Vector2 direction = Input.GetVector("input_left", "input_right", "input_up", "input_down").Normalized();
-
-		Velocity = direction * speed;
-		MoveAndSlide();
-	}
-
-	private void LookForInteractive(){
-		Array<Area2D> areas = interactArea.GetOverlappingAreas();
-		if(Input.IsActionJustPressed("action_left") && areas.Count > 0){
-			// foreach(Area2D area in areas){
-				Area2D area = areas[0];
-				GD.Print("area name: " + area.Name);
-				if(area is Item){ 
-					GD.Print("this area is Item");
-					Item item = area as Item;
-					if(!item.isNoted){
-						// GetNode<NoteBook>("/root/NoteBook").AddNote(item);
-						GD.Print("Sending signal...");
-						EmitSignal(SignalName.ItemAdded, item);
-						item.isNoted = true;
-					}else
-						GD.Print("Already noted!");
-				}
-			// }
-		}
-	}
+	private void SetAbilityToMove(bool canMove){
+        _canMove = canMove;
+    }
 }

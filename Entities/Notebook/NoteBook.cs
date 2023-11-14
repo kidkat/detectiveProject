@@ -2,26 +2,24 @@ using Godot;
 using Godot.Collections;
 
 public partial class NoteBook : Control{
-	//signals
-	//variables
-	[ExportCategory("Item List")]
+	[ExportCategory("Notes List")]
 	[Export]
 	public Array<Item> notes;
-	//node paths
 	[Export]
 	private NodePath playerTopDownContollerNodePath;
-
-	//nodes
-	private BoxContainer boxContainer;
+    [Export]
+    private NodePath InteractiveMenuControllerNodePath;
+    private BoxContainer boxContainer;
 
     public override void _Ready(){ 
-        notes = new Array<Item>();
-		// boxContainer = GetNode<BoxContainer>(boxContainerNodePath);
+        // notes = new Array<Item>();
 		this.Hide();
-		//connect to itemAdded signal
-		PlayerTopDownController playerTopDownController = GetNodeOrNull<PlayerTopDownController>(playerTopDownContollerNodePath);
-		if(playerTopDownController!= null)
-			playerTopDownController.ItemAdded += (item) => AddNote(item);
+        PlayerTopDownController playerTopDownController = GetNode<PlayerTopDownController>(playerTopDownContollerNodePath);
+		// if(interactiveMenuController != null)
+        //     interactiveMenuController.IdPressed += (id) => CheckId(id);
+        // PlayerTopDownController playerTopDownController = GetNodeOrNull<PlayerTopDownController>(playerTopDownContollerNodePath);
+        // if(playerTopDownController!= null)
+        // 	playerTopDownController.ItemAdded += (item) => AddNote(item);
     }
 
     public override void _Input(InputEvent @event){
@@ -30,6 +28,10 @@ public partial class NoteBook : Control{
 		}
     }
 
+	private void CheckId(long id){
+        GD.Print("Got signal");
+    }
+	
 	public void AddNote(Item item){
 		notes.Add(item);
 		PopUpMessage("Note Added!", "Found item: " + item.Name);
@@ -42,7 +44,7 @@ public partial class NoteBook : Control{
 	public void RemoveNote(int num){
 		notes.RemoveAt(num);
 	}
-
+	
 	private void PopUpMessage(string title, string message){
 		AcceptDialog dialog = new AcceptDialog();
 		dialog.DialogText = message;
