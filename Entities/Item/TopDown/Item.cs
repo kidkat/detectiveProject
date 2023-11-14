@@ -6,13 +6,7 @@ public partial class Item : Area2D{
 	public string itemName {get;set;}
 	[Export]
 	public string description {get; set;}
-	[ExportCategory("Available Actions")]
-	[Export]
-	public bool isPickable {get; set;}
-	[Export]
-	public bool isClue {get;set;}
-	[Export]
-	public bool isNoted {get;set;}
+
 	public Label label;
 
 	public override void _Ready(){

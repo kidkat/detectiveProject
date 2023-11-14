@@ -28,7 +28,7 @@ public partial class PlayerTopDownController : CharacterBody2D{
 
 
     public override void _Ready(){
-        GetNode<InteractiveAreaController>(_interactionAreaNodePath).Interacted += (areaList, bodyList) => this.SetAbilityToMove(false);
+        GetNode<InteractiveAreaController>(_interactionAreaNodePath).Interacted += (itemList, personList) => this.SetAbilityToMove(false);
         GetNode<InteractiveMenuController>(_interactiveMenuNodePath).Hidden += () => this.SetAbilityToMove(true);
     }
 

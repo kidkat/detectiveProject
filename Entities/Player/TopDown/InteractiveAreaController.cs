@@ -3,7 +3,7 @@ using Godot.Collections;
 
 public partial class InteractiveAreaController : Area2D{
 	[Signal]
-	public delegate void InteractedEventHandler(Array<Area2D> areaList, Array<Node2D> bodyList);
+	public delegate void InteractedEventHandler(Array<Item> itemList, Array<Person> personList);
 
 	[ExportCategory("Interaction Variables")]
     [Export]
@@ -13,12 +13,12 @@ public partial class InteractiveAreaController : Area2D{
     [Export]
     private StringName _actionNameForIntecation;
 
-    private Array<Area2D> _interactiveAreasList; 
-	private Array<Node2D> _interactiveBodyList;
+    private Array<Area2D> _interactiveItemList; 
+	private Array<Node2D> _interactivePersonList;
 
 	public override void _Ready(){
-        _interactiveAreasList = new();
-        _interactiveBodyList = new();
+        _interactiveItemList = new();
+        _interactivePersonList = new();
 
         this.AreaEntered += (area) => this.AddInteractAreaToList(area);
 		this.AreaExited += (area) => this.RemoveInteractAreaFromList(area);
@@ -32,37 +32,37 @@ public partial class InteractiveAreaController : Area2D{
 
 	private void InputProcess(InputEvent inputEvent){
 		if(inputEvent.IsActionPressed(_actionNameForIntecation)){
-			if(_interactiveAreasList.Count > 0 || _interactiveBodyList.Count > 0){
+			if(_interactiveItemList.Count > 0 || _interactivePersonList.Count > 0){
                 GD.Print("Interaction Happened!");
-                EmitSignal(SignalName.Interacted, _interactiveAreasList, _interactiveBodyList);
+                EmitSignal(SignalName.Interacted, _interactiveItemList, _interactivePersonList);
             }
 		}
 	}
 
 	private void AddInteractBodyToList(Node2D body){
-		if(!body.IsInGroup(_ignoreBodyGroupName)){
-			_interactiveBodyList.Add(body);
+		if(!body.IsInGroup(_ignoreBodyGroupName) && body.IsInGroup("Person")){
+			_interactivePersonList.Add(body);
 			GD.Print("Added to InteractBody: " + body.Name);
         }
 	}
 
 	private void RemoveInteractBodyToList(Node2D body){
-		if(!body.IsInGroup(_ignoreBodyGroupName)){
-			_interactiveBodyList.Remove(body);
+		if(!body.IsInGroup(_ignoreBodyGroupName) && body.IsInGroup("Group")){
+			_interactivePersonList.Remove(body);
 			GD.Print("Removed from InteractBody: " + body.Name);
 		}
 	}
 
 	private void AddInteractAreaToList(Area2D area){
-        if (!area.IsInGroup(_ignoreAreaGroupName)){
-            _interactiveAreasList.Add(area);
+        if (!area.IsInGroup(_ignoreAreaGroupName) && area.IsInGroup("Item")){
+            _interactiveItemList.Add(area);
             GD.Print("Added to InteractArea: " + area.Name);
         }
     }
 
 	private void RemoveInteractAreaFromList(Area2D area){
-        if (!area.IsInGroup(_ignoreAreaGroupName)){
-            _interactiveAreasList.Remove(area);
+        if (!area.IsInGroup(_ignoreAreaGroupName) && area.IsInGroup("Item")){
+            _interactiveItemList.Remove(area);
 			GD.Print("Removed from InteractArea: " + area.Name);
         }
     }

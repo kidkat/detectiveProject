@@ -2,6 +2,11 @@ using Godot;
 using Godot.Collections;
 
 public partial class InteractiveMenuController : Control{
+    [Signal]
+    public delegate void ItemAddedEventHandler(Item item);
+    [Signal]
+    public delegate void PersonAddedEventHandler(Person person);
+
     [ExportCategory("Interactive Menu Variables")]
     [Export]
     private NodePath _playerTopDownNodePath;
@@ -9,65 +14,77 @@ public partial class InteractiveMenuController : Control{
     private string _interactiveAreaNodePath;
     [Export]
     private NodePath _boxContainerNodePath;
-    
+
     private VBoxContainer _boxContainer;
 
+    private Dictionary<long, Item> _itemsDictionary;
+    private Dictionary<long, Node2D> _personDictionary;
+    private int _indexCounter;
 
     public override void _Ready(){
         this.Hide();
+        _itemsDictionary = new();
+        _personDictionary = new();
+        _indexCounter = 0;
         _boxContainer = GetNode<VBoxContainer>(_boxContainerNodePath);
-        GetNode<InteractiveAreaController>(_playerTopDownNodePath.ToString() + "/" + _interactiveAreaNodePath).Interacted += (areaList, bodyList) => this.PopupMenu(areaList, bodyList);
+        GetNode<InteractiveAreaController>(_playerTopDownNodePath.ToString() + "/" + _interactiveAreaNodePath).Interacted += (itemList, personList) => this.PopupMenu(itemList, personList);
     }
 
-    private void PopupMenu(Array<Area2D> interactAreaList, Array<Node2D> interactBodyList){
+    private void PopupMenu(Array<Item> interactItemList, Array<Person> interactPersonList){
         if(this.Visible)
             return;
 
         this.Show();
-        if(interactAreaList.Count > 0){
-            this.SetUpInteractAreas(interactAreaList);
+        if(interactItemList.Count > 0){
+            this.SetUpInteractItems(interactItemList);
         }
 
-        if(interactBodyList.Count > 0){
-            this.SetUpInteractBodies(interactBodyList);
+        if(interactPersonList.Count > 0){
+            this.SetUpInteractPersons(interactPersonList);
         }
 
         this.SetUpCloseButton();
     }
 
-    private void SetUpInteractAreas(Array<Area2D> interactAreaList){
+    private void SetUpInteractItems(Array<Item> interactItemList){
         Label label = new();
         label.Name = "Items";
         label.Text = "Items";
         label.HorizontalAlignment = HorizontalAlignment.Center;
         _boxContainer.AddChild(label);
-        foreach(Area2D area in interactAreaList){
+        foreach(Item item in interactItemList){
             MenuButton menuButton = new();
-            menuButton.Name = area.Name;
-            menuButton.Text = area.Name;
+            menuButton.Name = item.Name;
+            menuButton.Text = item.Name;
             _boxContainer.AddChild(menuButton);
 
-            PopupMenu areaPopupMenu = menuButton.GetPopup();
-            areaPopupMenu.Name = area.Name;
-            areaPopupMenu.AddItem("Node it");
+            PopupMenu itemPopupMenu = menuButton.GetPopup();
+            itemPopupMenu.Name = item.Name;
+            itemPopupMenu.AddItem("Node it", _indexCounter);
+            _itemsDictionary.Add(_indexCounter, item);
+            _indexCounter++;
+            itemPopupMenu.IdPressed += (id) => this.IdPressed(id);
         }
     }
 
-    private void SetUpInteractBodies(Array<Node2D> interactBodyList){
+    private void SetUpInteractPersons(Array<Person> interactBodyList){
         Label label = new();
         label.Name = "Persons";
         label.Text = "Persons";
         label.HorizontalAlignment = HorizontalAlignment.Center;
         _boxContainer.AddChild(label);
-        foreach(Node2D body in interactBodyList){
+        foreach(Person person in interactBodyList){
             MenuButton menuButton = new();
-            menuButton.Name = body.Name;
-            menuButton.Text = body.Name;
+            menuButton.Name = person.Name;
+            menuButton.Text = person.Name;
             _boxContainer.AddChild(menuButton);
 
-            PopupMenu bodyPopupMenu = menuButton.GetPopup();
-            bodyPopupMenu.Name = body.Name;
-            bodyPopupMenu.AddItem("Talk!");
+            PopupMenu personPopupMenu = menuButton.GetPopup();
+            personPopupMenu.Name = person.Name;
+            personPopupMenu.AddItem("Talk!", _indexCounter);
+            _personDictionary.Add(_indexCounter, person);
+            _indexCounter++;
+            personPopupMenu.IdPressed += (id) => this.IdPressed(id);
         }
     }
 
@@ -84,6 +101,18 @@ public partial class InteractiveMenuController : Control{
         //removing all content from boxContainer
         foreach(Node container in _boxContainer.GetChildren()){
             _boxContainer.RemoveChild(container);
+        }
+    }
+
+    private void IdPressed(long id){
+        if(_itemsDictionary.ContainsKey(id)){
+            EmitSignal(SignalName.ItemAdded, _itemsDictionary[id]);
+            this.CloseButtonPressed();
+        }
+
+        if(_personDictionary.ContainsKey(id)){
+            EmitSignal(SignalName.PersonAdded, _personDictionary[id]);
+            this.CloseButtonPressed();
         }
     }
 }

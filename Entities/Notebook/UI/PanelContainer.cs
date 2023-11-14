@@ -2,72 +2,77 @@ using System.Reflection.Metadata.Ecma335;
 using Godot;
 
 public partial class PanelContainer : Godot.PanelContainer{
-	//node paths
-	//nodes
-	//buttons
-	[Export]
-	private Button peopleButton;
-	[Export]
-	private Button cluesButton;
-	[Export]
-	private Button locationsButton;
-	[Export]
-	private Button objectivesButton;
-	//control pages
-	[Export]
-	private Control mainPage;
-	[Export]
-	private Control peoplePage;
-	[Export]
-	private Control cluesPage;
-	[Export]
-	private Control locationsPage;
-	[Export]
-	private Control objectivesPage;
+	enum Pages{ PEOPLE, EVENTS, ITEMS, LOCATIONS }
 
-	public override void _Ready(){
-		this.disableAllPages();
-		mainPage.Show();
-		peopleButton.Pressed += () => turnPage("people");
-		cluesButton.Pressed += () => turnPage("clues");
-		locationsButton.Pressed += () => turnPage("locations");
-		objectivesButton.Pressed += () => turnPage("objectives");
+	[ExportCategory("Buttons")]
+	[Export]
+	private Button _peopleButton;
+	[Export]
+	private Button _eventsButton;
+	[Export]
+	private Button _itemsButton;
+	[Export]
+	private Button _locationsButton;
+
+	[ExportCategory("Controls")]
+	[Export]
+	private Control _mainPage;
+	[Export]
+	private Control _peoplePage;
+	[Export]
+	private Control _eventsPage;
+	[Export]
+	private Control _itemsPage;
+	[Export]
+	private Control _locationsPage;
+	
+    [ExportCategory("Actions")]
+    [Export]
+    private StringName _actionNoteBookBack;
+
+    public override void _Ready(){
+		this.DisableAllPages();
+		_mainPage.Show();
+		_peopleButton.Pressed += () => this.TurnPage(Pages.PEOPLE);
+		_eventsButton.Pressed += () => this.TurnPage(Pages.EVENTS);
+		_itemsButton.Pressed += () => this.TurnPage(Pages.ITEMS);
+		_locationsButton.Pressed += () => this.TurnPage(Pages.LOCATIONS);
 	}
 
     public override void _Input(InputEvent @event){
-        if(@event.IsActionPressed("noteBook_back")){
-			this.disableAllPages();
-			mainPage.Show();
+        if(@event.IsActionPressed(_actionNoteBookBack)){
+			this.DisableAllPages();
+			_mainPage.Show();
 		}
     }
     
-	private void turnPage(string page){
-		this.disableAllPages();
+	private void TurnPage(Pages page){
+		this.DisableAllPages();
 		switch(page){
-			case "people":
+			case Pages.PEOPLE:
 				GD.Print("people button pressed!");
-				peoplePage.Show();
+				_peoplePage.Show();
 				break;
-			case "clues":
-				GD.Print("clues button pressed!");
-				cluesPage.Show();
+			case Pages.ITEMS:
+				GD.Print("items button pressed!");
+				_itemsPage.Show();
 				break;
-			case "locations":
+			case Pages.LOCATIONS:
 				GD.Print("locations button pressed!");
-				locationsPage.Show();
+				_locationsPage.Show();
 				break;
-			case "objectives":
-				GD.Print("objectives button pressed!");
-				objectivesPage.Show();
+			case Pages.EVENTS:
+				GD.Print("events button pressed!");
+				_eventsPage.Show();
 				break;
 		}
 	}
 
-	private void disableAllPages(){
-		mainPage.Hide();
-		peoplePage.Hide();
-		cluesPage.Hide();
-		locationsPage.Hide();
-		objectivesPage.Hide();
+	private void DisableAllPages(){
+		_mainPage.Hide();
+		_peoplePage.Hide();
+		_itemsPage.Hide();
+		_locationsPage.Hide();
+		_eventsPage.Hide();
 	}
 }

@@ -4,22 +4,17 @@ using Godot.Collections;
 public partial class NoteBook : Control{
 	[ExportCategory("Notes List")]
 	[Export]
-	public Array<Item> notes;
-	[Export]
-	private NodePath playerTopDownContollerNodePath;
+	private Array<Item> _itemList;
+    [Export]
+    private Array<Person> _presonList;
+	[ExportCategory("")]
     [Export]
     private NodePath InteractiveMenuControllerNodePath;
-    private BoxContainer boxContainer;
 
     public override void _Ready(){ 
-        // notes = new Array<Item>();
-		this.Hide();
-        PlayerTopDownController playerTopDownController = GetNode<PlayerTopDownController>(playerTopDownContollerNodePath);
-		// if(interactiveMenuController != null)
-        //     interactiveMenuController.IdPressed += (id) => CheckId(id);
-        // PlayerTopDownController playerTopDownController = GetNodeOrNull<PlayerTopDownController>(playerTopDownContollerNodePath);
-        // if(playerTopDownController!= null)
-        // 	playerTopDownController.ItemAdded += (item) => AddNote(item);
+        _itemList = new();
+        _presonList = new();
+        this.Hide();
     }
 
     public override void _Input(InputEvent @event){
@@ -33,16 +28,12 @@ public partial class NoteBook : Control{
     }
 	
 	public void AddNote(Item item){
-		notes.Add(item);
+		_itemList.Add(item);
 		PopUpMessage("Note Added!", "Found item: " + item.Name);
-        // Button button = new(){
-        //     Text = item.Name
-        // };
-        // boxContainer.AddChild(button);
 	}
 
 	public void RemoveNote(int num){
-		notes.RemoveAt(num);
+		_itemList.RemoveAt(num);
 	}
 	
 	private void PopUpMessage(string title, string message){

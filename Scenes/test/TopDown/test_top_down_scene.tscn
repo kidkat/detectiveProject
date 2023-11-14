@@ -14,7 +14,6 @@ offset_left = -4.0
 offset_top = 5.0
 offset_right = -4.0
 offset_bottom = 5.0
-playerTopDownContollerNodePath = NodePath("../../PlayerTopDown")
 
 [node name="InteractiveMenu" parent="CanvasLayer" instance=ExtResource("2_2afai")]
 _playerTopDownNodePath = NodePath("../../PlayerTopDown")
@@ -30,4 +29,5 @@ _interactiveMenuNodePath = NodePath("../CanvasLayer/InteractiveMenu")
 
 [node name="Glasses" parent="." instance=ExtResource("1_bxvuc")]
 position = Vector2(225, 48)
+itemName = "ItemGlasses"
 description = "glasses desc"
