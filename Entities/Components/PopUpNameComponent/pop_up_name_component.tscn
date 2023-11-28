@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1np8rfvdt0df"]
+
+[ext_resource type="Script" path="res://Entities/Components/PopUpNameComponent/PopUpNameComponent.cs" id="1_q7h8f"]
+
+[node name="PopUpNameComponent" type="Area2D" node_paths=PackedStringArray("_popUpLabel")]
+script = ExtResource("1_q7h8f")
+_popUpLabel = NodePath("PopUpLabel")
+_popUpAreaTrigerGroups = Array[StringName]([&"Player"])
+
+[node name="PopUpLabel" type="Label" parent="."]
+visible = false
+z_index = 5
+offset_left = -27.0
+offset_top = -43.0
+offset_right = 28.0
+offset_bottom = -17.0
+text = "Empty"
+horizontal_alignment = 1
+vertical_alignment = 1

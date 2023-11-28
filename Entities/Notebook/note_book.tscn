@@ -1,27 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxdja6q5ljdrp"]
+[gd_scene load_steps=4 format=3 uid="uid://dxdja6q5ljdrp"]
 
 [ext_resource type="Script" path="res://Entities/Notebook/NoteBook.cs" id="1_7hb4g"]
 [ext_resource type="Script" path="res://Entities/Notebook/UI/PanelContainer.cs" id="2_6p4js"]
+[ext_resource type="Script" path="res://Entities/Notebook/UI/ItemsPage.cs" id="3_00o7f"]
 
 [node name="NoteBook" type="Control" node_paths=PackedStringArray("_itemList", "_presonList")]
+visible = false
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1152.0
-offset_bottom = -648.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_7hb4g")
 _itemList = []
 _presonList = []
 
 [node name="PanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("_peopleButton", "_eventsButton", "_itemsButton", "_locationsButton", "_mainPage", "_peoplePage", "_eventsPage", "_itemsPage", "_locationsPage")]
 layout_mode = 0
-offset_left = 83.0
-offset_top = 139.0
-offset_right = 385.0
-offset_bottom = 480.0
+offset_left = -148.0
+offset_top = -173.0
+offset_right = 154.0
+offset_bottom = 168.0
 script = ExtResource("2_6p4js")
 _peopleButton = NodePath("Main/BoxContainer/PeopleButton")
 _eventsButton = NodePath("Main/BoxContainer/EventsButton")
@@ -80,6 +76,7 @@ visible = false
 layout_mode = 2
 
 [node name="BoxContainer" type="VBoxContainer" parent="PanelContainer/Events"]
+layout_mode = 0
 offset_right = 302.0
 offset_bottom = 341.0
 
@@ -88,16 +85,18 @@ layout_mode = 2
 text = "Events"
 horizontal_alignment = 1
 
-[node name="Items" type="Control" parent="PanelContainer"]
+[node name="Items" type="Control" parent="PanelContainer" node_paths=PackedStringArray("_boxContainer")]
 visible = false
 layout_mode = 2
+script = ExtResource("3_00o7f")
+_boxContainer = NodePath("BoxContainer")
 
 [node name="BoxContainer" type="VBoxContainer" parent="PanelContainer/Items"]
 layout_mode = 0
 offset_right = 302.0
 offset_bottom = 341.0
 
-[node name="Label" type="Label" parent="PanelContainer/Items/BoxContainer"]
+[node name="PageTitle" type="Label" parent="PanelContainer/Items/BoxContainer"]
 layout_mode = 2
 text = "Items"
 horizontal_alignment = 1

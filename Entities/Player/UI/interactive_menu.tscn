@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://po6hwmiehis5"]
 
-[ext_resource type="Script" path="res://Entities/Player/TopDown/UI/InteractiveMenuController.cs" id="1_b7lxt"]
+[ext_resource type="Script" path="res://Entities/Player/UI/InteractiveMenuController.cs" id="1_b7lxt"]
 
 [node name="InteractiveMenu" type="Control"]
 layout_mode = 3

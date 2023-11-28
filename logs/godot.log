@@ -1,0 +1,24 @@
+Godot Engine v4.1.3.stable.mono.official.f06b6836a - https://godotengine.org
+Vulkan API 1.3.260 - Forward+ - Using Vulkan Device #0: NVIDIA - NVIDIA GeForce RTX 3070
+ 
+PopUpNameComponent:> Wallet:> Component ready with label: Wallet
+PopUpNameComponent:> Glasses:> Component ready with label: Glasses
+PopUpNameComponent:> Tube:> Component ready with label: Tube
+PopUpNameComponent:> WalletBody with name: PlayerTopDown Entered/Exited Area!
+PopUpNameComponent:> Wallet:> Body is in TriggerGroup: Player Changing visible to: True
+PopUpNameComponent:> GlassesBody with name: PlayerTopDown Entered/Exited Area!
+PopUpNameComponent:> Glasses:> Body is in TriggerGroup: Player Changing visible to: True
+PopUpNameComponent:> WalletBody with name: PlayerTopDown Entered/Exited Area!
+PopUpNameComponent:> Wallet:> Body is in TriggerGroup: Player Changing visible to: False
+PopUpNameComponent:> WalletBody with name: PlayerTopDown Entered/Exited Area!
+PopUpNameComponent:> Wallet:> Body is in TriggerGroup: Player Changing visible to: True
+PopUpNameComponent:> GlassesBody with name: PlayerTopDown Entered/Exited Area!
+PopUpNameComponent:> Glasses:> Body is in TriggerGroup: Player Changing visible to: False
+PopUpNameComponent:> WalletBody with name: PlayerTopDown Entered/Exited Area!
+PopUpNameComponent:> Wallet:> Body is in TriggerGroup: Player Changing visible to: False
+PopUpNameComponent:> TubeBody with name: PlayerTopDown Entered/Exited Area!
+PopUpNameComponent:> Tube:> Body is in TriggerGroup: Player Changing visible to: True
+PopUpNameComponent:> TubeBody with name: PlayerTopDown Entered/Exited Area!
+PopUpNameComponent:> Tube:> Body is in TriggerGroup: Player Changing visible to: False
+USER WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2047)

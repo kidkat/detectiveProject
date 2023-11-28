@@ -29,14 +29,14 @@ public partial class PlayerTopDownController : CharacterBody2D{
 
     public override void _Ready(){
         GetNode<InteractiveAreaController>(_interactionAreaNodePath).Interacted += (itemList, personList) => this.SetAbilityToMove(false);
-        GetNode<InteractiveMenuController>(_interactiveMenuNodePath).Hidden += () => this.SetAbilityToMove(true);
+        // GetNode<InteractiveMenuController>(_interactiveMenuNodePath).Hidden += () => this.SetAbilityToMove(true);
     }
 
 	public override void _PhysicsProcess(double delta){
-		this.MovingProcess(delta);
+        this.GetInputAndMove(delta);
 	}
 
-	private void MovingProcess(double delta){
+	private void GetInputAndMove(double delta){
         if (_canMove){
             Vector2 direction = Input.GetVector(_actionNameForInputLeft, _actionNameForInputRight, _actionNameForInputUp, _actionNameForInputDown).Normalized();
 

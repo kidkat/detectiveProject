@@ -27,7 +27,7 @@ public partial class InteractiveMenuController : Control{
         _personDictionary = new();
         _indexCounter = 0;
         _boxContainer = GetNode<VBoxContainer>(_boxContainerNodePath);
-        GetNode<InteractiveAreaController>(_playerTopDownNodePath.ToString() + "/" + _interactiveAreaNodePath).Interacted += (itemList, personList) => this.PopupMenu(itemList, personList);
+        GetNode<InteractiveAreaController>(_playerTopDownNodePath + "/" + _interactiveAreaNodePath).Interacted += (itemList, personList) => this.PopupMenu(itemList, personList);
     }
 
     private void PopupMenu(Array<Item> interactItemList, Array<Person> interactPersonList){

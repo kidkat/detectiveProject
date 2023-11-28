@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cktisqd3uw6aw"]
+
+[ext_resource type="PackedScene" uid="uid://po6hwmiehis5" path="res://Entities/Player/UI/interactive_menu.tscn" id="1_t5xox"]
+[ext_resource type="PackedScene" uid="uid://ckqiv62ijegwu" path="res://Entities/Item/item.tscn" id="2_pk3xr"]
+[ext_resource type="PackedScene" uid="uid://c3tvv5iqrelr0" path="res://Entities/Player/player_top_down.tscn" id="3_pohpr"]
+
+[node name="TestTopDownScene" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="InteractiveMenu" parent="CanvasLayer" instance=ExtResource("1_t5xox")]
+visible = false
+_playerTopDownNodePath = NodePath("../../PlayerTopDown")
+_interactiveAreaNodePath = "InteractiveArea"
+
+[node name="PlayerTopDown" parent="." instance=ExtResource("3_pohpr")]
+position = Vector2(133, -79)
+_interactiveMenuNodePath = NodePath("../CanvasLayer/InteractiveMenu")
+
+[node name="Wallet" parent="." instance=ExtResource("2_pk3xr")]
+position = Vector2(163, 79)
+
+[node name="Glasses" parent="." instance=ExtResource("2_pk3xr")]
+position = Vector2(225, 48)
+
+[node name="Tube" parent="." instance=ExtResource("2_pk3xr")]
+position = Vector2(30, -2)
